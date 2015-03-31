@@ -22,29 +22,20 @@ inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 nnoremap 0 $
 nnoremap 1 0
-inoremap <silent> <C-i> <C-g>u<C-h>
-inoremap <silent> <C-o> 
 inoremap <silent> <C-g> <C-d>
 inoremap <silent> <C-d> <Del>
-inoremap <silent> <C-d>e <Esc>lc^
-inoremap <silent> <C-d>o <Esc>lc$
 inoremap <silent> <C-w>e <Esc>0<Insert>
 inoremap <silent> <C-w>o <Esc>$<Insert>
-inoremap { {}<Left>
-inoremap [ []<Left>
-inoremap " ""<Left>
-inoremap ' ''<Left>
-inoremap <> <><Left>
-noremap <CR> o<Esc> 
-nnoremap ; :
-inoremap <C-s> <Esc>:w<CR><Insert>
-inoremap <C-z> <Esc>u<Insert>
-inoremap <C-y> <Esc><C-b><Insert>
-inoremap <C-b> <Esc><C-f><Insert>
+noremap ; :
 syntax on
 
 set ignorecase
 command Vf VimFiler -split -simple -winwidth=30 -no-quit
+
+"-------------------------------------------
+"autocmd
+autocmd BufNewFile,BufRead *.rabl set ft=ruby fenc=utf-8
+
 
 "-------------------------------------------
 " neobundle
