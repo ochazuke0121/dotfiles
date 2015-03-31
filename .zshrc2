@@ -1,0 +1,83 @@
+alias ls="ls -GF"
+alias ll='ls -lFG'
+alias l='ls -lFG'
+alias la='ls -lFGa'
+alias vi='vim'
+alias gd='dirs -v; echo -n "select number: "; read newdir; cd +"$newdir"'
+alias brake='bundle exec rake'
+alias rm='rm -i'
+alias javac='javac -J-Dfile.encoding=UTF-8'
+alias java='env LC_ALL=en java -Dfile.encoding=UTF-8'
+alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
+alias cap2='cap _2.15.5_'
+alias gs="git status"
+alias gl="git log --graph"
+
+zstyle :compinstall filename '~/.zshrc'
+autoload -Uz compinit && compinit
+setopt auto_param_slash
+
+# 単語の区切り文字を指定する
+autoload -Uz select-word-style
+select-word-style default
+# ここで指定した文字は単語区切りとみなされる
+# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
+zstyle ':zle:*' word-chars " /=;@:{},|"
+zstyle ':zle:*' word-style unspecified
+
+# beepをならさない
+setopt no_beep
+
+## TAB で順に補完候補を切り替える
+setopt auto_menu
+
+setopt magic_equal_subst
+setopt mark_dirs
+
+#export LS_COLORS='di=01;36'
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export LANG=ja_JP.UTF-8 
+
+PROMPT="%m:%n%% "
+RPROMPT="[%~]"
+SPROMPT="correct: %R -> %r ? " 
+
+#set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
+# ヒストリの設定
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH=$PATH:${AWS_IAM_HOME}/bin
+
+setopt prompt_subst
+autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
+
+function lprompt-git-current-branch {
+local name st color gitdir action
+if [[ "$PWD" =~ '/¥.git(/.*)?$' ]]; then
+	return
+fi
+name=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
+if [[ -z $name ]]; then
+	return
+fi
+
+gitdir=`git rev-parse --git-dir 2> /dev/null`
+action=`VCS_INFO_git_getaction "$gitdir"` && action="($action)"
+
+st=`git status 2> /dev/null`
+color=%F{green}
+
+echo "[$color$name$action%f%b] "
+}
+
+PROMPT+='`lprompt-git-current-branch`'
+
+if which rbenv > /dev/null; 
+then 
+  eval "$(rbenv init - zsh)"; 
+fi
