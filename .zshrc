@@ -35,7 +35,7 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 export LANG=ja_JP.UTF-8 
 
 PROMPT="%F{cyan}%n%f%% "
-RPROMPT="[%F{red}%~%f]"
+RPROMPT="[%F{magenta}%~%f]"
 SPROMPT="correct: %R -> %r ? " 
 
 #set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
