@@ -3,6 +3,7 @@ autoload -U compinit; compinit
 alias ...='cd ../..'
 alias ....='cd ../../../'
 alias gs='git status'
+alias show_tmux_colurs='for i in {0..255} ; do;printf "\x1b[38;5;${i}mcolour${i}  ";done'
 zstyle ':completion:*:default' menu select=1
 
 HISTSIZE=1000
